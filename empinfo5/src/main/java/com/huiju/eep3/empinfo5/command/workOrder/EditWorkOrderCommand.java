@@ -9,6 +9,6 @@ import lombok.Data;
 @Cmd
 public class EditWorkOrderCommand extends WorkOrder {
 
-    @TargetAggregateIdentifier
+//    @TargetAggregateIdentifier
     private String id;
 }

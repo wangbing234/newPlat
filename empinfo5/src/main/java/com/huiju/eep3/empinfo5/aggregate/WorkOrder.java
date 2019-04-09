@@ -58,7 +58,7 @@ public class WorkOrder extends SimpleAggregate {
      */
     @CommandHandler
     public void handler(DeleteWorkOrderCommand cmd) {
-        PlanDeleteEvent planEditEvent = new PlanDeleteEvent();
+        DeleteWorkOrderEvent planEditEvent = new DeleteWorkOrderEvent();
         BeanUtils.copyProperties(cmd, planEditEvent);
         AggregateLifecycle.apply(planEditEvent);
     }
