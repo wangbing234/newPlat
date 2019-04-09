@@ -3,7 +3,6 @@ package com.huiju.eep3.empinfo5.aggregate;
 import com.huiju.eep3.empinfo5.command.materielType.AddTypeCommand;
 import com.huiju.eep3.empinfo5.command.materielType.DeleteTypeCommand;
 import com.huiju.eep3.empinfo5.command.materielType.EditTypeCommand;
-import com.huiju.eep3.empinfo5.event.materielInfo.DeleteMaterielEvt;
 import com.huiju.eep3.empinfo5.event.materielType.AddTypeEvt;
 import com.huiju.eep3.empinfo5.event.materielType.DeleteTypeEvt;
 import com.huiju.eep3.empinfo5.event.materielType.EditTypeEvt;
@@ -30,7 +29,7 @@ public class MaterielType extends SimpleAggregate {
     @CommandHandler
     public void handler(AddTypeCommand cmd) {
         AddTypeEvt addTypeEvt = new AddTypeEvt();
-        BeanUtils.copyProperties(cmd,addTypeEvt);
+        BeanUtils.copyProperties(cmd, addTypeEvt);
         AggregateLifecycle.apply(addTypeEvt);
     }
 
@@ -40,7 +39,7 @@ public class MaterielType extends SimpleAggregate {
     @CommandHandler
     public void handler(EditTypeCommand cmd) {
         EditTypeEvt addTypeEvt = new EditTypeEvt();
-        BeanUtils.copyProperties(cmd,addTypeEvt);
+        BeanUtils.copyProperties(cmd, addTypeEvt);
         AggregateLifecycle.apply(addTypeEvt);
     }
 
@@ -59,7 +58,7 @@ public class MaterielType extends SimpleAggregate {
      */
     @EventHandler
     public void on(AddTypeEvt evt) {
-        BeanUtils.copyProperties(evt,this);
+        BeanUtils.copyProperties(evt, this);
     }
 
     /**
@@ -67,7 +66,7 @@ public class MaterielType extends SimpleAggregate {
      */
     @EventHandler
     public void on(EditTypeEvt evt) {
-        BeanUtils.copyProperties(evt,this);
+        BeanUtils.copyProperties(evt, this);
     }
 
     /**
