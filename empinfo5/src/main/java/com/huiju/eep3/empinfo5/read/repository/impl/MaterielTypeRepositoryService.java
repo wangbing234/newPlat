@@ -1,12 +1,11 @@
 package com.huiju.eep3.empinfo5.read.repository.impl;
 
-import com.huiju.eep3.empinfo5.TreeBuilderUtil;
-import com.huiju.eep3.empinfo5.TreeNodeDTO;
+import com.huiju.eep3.empinfo5.utils.TreeBuilderUtil;
+import com.huiju.eep3.empinfo5.utils.TreeNodeDTO;
 import com.huiju.eep3.empinfo5.read.entity.MaterielType;
 import com.huiju.eep3.empinfo5.read.repository.MaterielTypeRepository;
 import com.huiju.framework.ddd.annotation.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 

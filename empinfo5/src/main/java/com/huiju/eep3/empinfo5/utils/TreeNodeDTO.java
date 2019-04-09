@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package com.huiju.eep3.empinfo5;
+package com.huiju.eep3.empinfo5.utils;
 
 import java.io.Serializable;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.huiju.eep3.empinfo5.command.materielType;
+package com.huiju.eep3.empinfo5.command.workOrder;
 
 import java.util.*;
 import java.math.*;
@@ -9,11 +9,7 @@ import com.huiju.framework.ddd.annotation.Cmd;
 
 @Data
 @Cmd
-public class DeleteTypeCommand {
+public class DeleteWorkOrderCommand {
 
-	/**
-	 * code
-	 */
-	@TargetAggregateIdentifier
-	private String id;
+    private List<String> ids;
 }

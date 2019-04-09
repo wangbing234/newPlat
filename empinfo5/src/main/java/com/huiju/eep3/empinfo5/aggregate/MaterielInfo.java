@@ -107,10 +107,4 @@ public class MaterielInfo extends SimpleAggregate {
         BeanUtils.copyProperties(evt,this);
     }
 
-    /**
-     * DeleteMaterielEvt事件处理
-     */
-    @EventHandler
-    public void on(DeleteMaterielEvt evt) {
-    }
 }
