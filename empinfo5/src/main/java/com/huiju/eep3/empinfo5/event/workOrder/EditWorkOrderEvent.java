@@ -7,4 +7,8 @@ import java.io.Serializable;
 
 @Data
 public class EditWorkOrderEvent  extends WorkOrder implements Serializable {
+    /**
+     * code
+     */
+    private String id;
 }

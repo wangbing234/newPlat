@@ -14,6 +14,6 @@ public class MaterielInfoEdit  extends MaterielInfoDTO {
     /**
      * 物料编码
      */
-//    @TargetAggregateIdentifier
+    @TargetAggregateIdentifier
     private String id;
 }

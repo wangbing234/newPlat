@@ -10,5 +10,8 @@ import lombok.Data;
 @Data
 public class PlanEditEvent  extends PlanOrder implements Serializable {
 
-
+    /**
+     * code
+     */
+    private String id;
 }
