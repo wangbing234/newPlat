@@ -25,7 +25,7 @@ public class PlanOrderEvent {
     @EventHandler
     @Transactional
     public void on(PlanDeleteEvent evt) {
-        planOrderEntityRepository.deleteByGidIn(evt.getIds());
+        planOrderEntityRepository.deleteByIdIn(evt.getIds());
     }
 
     /**

@@ -28,7 +28,7 @@ public class WorkOrderEvent {
 	@EventHandler
 	@Transactional
 	public void on(DeleteWorkOrderEvent evt) {
-		workOrderEntityRepository.deleteByGidIn(evt.getIds());
+		workOrderEntityRepository.deleteByIdIn(evt.getIds());
 	}
 
 	/**

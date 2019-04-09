@@ -13,5 +13,5 @@ public interface WorkOrderEntityRepository
 	@Override
 	List<WorkOrderEntity> findAll();
 
-	void  deleteByGidIn(List<String> ids);
+	void  deleteByIdIn(List<String> ids);
 }

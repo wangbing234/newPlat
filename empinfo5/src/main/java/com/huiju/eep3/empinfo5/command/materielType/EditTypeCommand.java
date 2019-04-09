@@ -8,6 +8,6 @@ import lombok.Data;
 @Data
 @Cmd
 public class EditTypeCommand extends MaterielTypeDTO {
-    @TargetAggregateIdentifier
+//    @TargetAggregateIdentifier
     private String id;
 }
