@@ -10,4 +10,5 @@ public interface MaterielTypeRepository extends WiselyRepository<MaterielType, S
 
 	@Override
 	List<MaterielType> findAll();
+
 }
