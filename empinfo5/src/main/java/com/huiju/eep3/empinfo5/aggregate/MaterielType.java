@@ -3,14 +3,17 @@ package com.huiju.eep3.empinfo5.aggregate;
 import com.huiju.eep3.empinfo5.command.materielType.AddTypeCommand;
 import com.huiju.eep3.empinfo5.command.materielType.DeleteTypeCommand;
 import com.huiju.eep3.empinfo5.command.materielType.EditTypeCommand;
+import com.huiju.eep3.empinfo5.event.materielInfo.DeleteMaterielEvt;
 import com.huiju.eep3.empinfo5.event.materielType.AddTypeEvt;
 import com.huiju.eep3.empinfo5.event.materielType.DeleteTypeEvt;
 import com.huiju.eep3.empinfo5.event.materielType.EditTypeEvt;
+import com.huiju.framework.ddd.aggregate.AggregateLifecycle;
 import com.huiju.framework.ddd.aggregate.SimpleAggregate;
 import com.huiju.framework.ddd.annotation.CommandHandler;
 import com.huiju.framework.ddd.annotation.EventHandler;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 
 @Data
 @Slf4j
@@ -26,6 +29,9 @@ public class MaterielType extends SimpleAggregate {
      */
     @CommandHandler
     public void handler(AddTypeCommand cmd) {
+        AddTypeEvt addTypeEvt = new AddTypeEvt();
+        BeanUtils.copyProperties(cmd,addTypeEvt);
+        AggregateLifecycle.apply(addTypeEvt);
     }
 
     /**
@@ -33,6 +39,9 @@ public class MaterielType extends SimpleAggregate {
      */
     @CommandHandler
     public void handler(EditTypeCommand cmd) {
+        EditTypeEvt addTypeEvt = new EditTypeEvt();
+        BeanUtils.copyProperties(cmd,addTypeEvt);
+        AggregateLifecycle.apply(addTypeEvt);
     }
 
     /**
@@ -40,6 +49,9 @@ public class MaterielType extends SimpleAggregate {
      */
     @CommandHandler
     public void handler(DeleteTypeCommand cmd) {
+        DeleteTypeEvt deleteMaterielEvt = new DeleteTypeEvt();
+        deleteMaterielEvt.setId(cmd.getId());
+        AggregateLifecycle.apply(deleteMaterielEvt);
     }
 
     /**
@@ -47,6 +59,7 @@ public class MaterielType extends SimpleAggregate {
      */
     @EventHandler
     public void on(AddTypeEvt evt) {
+        BeanUtils.copyProperties(evt,this);
     }
 
     /**
@@ -54,6 +67,7 @@ public class MaterielType extends SimpleAggregate {
      */
     @EventHandler
     public void on(EditTypeEvt evt) {
+        BeanUtils.copyProperties(evt,this);
     }
 
     /**
