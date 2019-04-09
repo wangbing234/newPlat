@@ -14,6 +14,5 @@ public class DeleteTypeCommand {
 	/**
 	 * code
 	 */
-	@TargetAggregateIdentifier
 	private String id;
 }

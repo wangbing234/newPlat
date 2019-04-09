@@ -13,10 +13,6 @@ import javax.persistence.Entity;
 public class EmployeeEntity extends IdEntity {
 
 	/**
-	 * id
-	 */
-	private String id;
-	/**
 	 * age
 	 */
 	private Integer age;
