@@ -13,5 +13,5 @@ public class CreateMaterielEvt extends MaterielInfoDTO implements Serializable {
 	/**
 	 * 编码
 	 */
-	private String code;
+	private String id;
 }

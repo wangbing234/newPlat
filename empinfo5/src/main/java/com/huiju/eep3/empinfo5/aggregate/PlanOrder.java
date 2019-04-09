@@ -73,6 +73,7 @@ public class PlanOrder extends SimpleAggregate {
     public void handler(PlanCreateCommand cmd) {
         PlanAddEvent addTypeEvt = new PlanAddEvent();
         BeanUtils.copyProperties(cmd, addTypeEvt);
+        addTypeEvt.setId(getAggregateId());
         AggregateLifecycle.apply(addTypeEvt);
     }
 

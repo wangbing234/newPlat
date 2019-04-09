@@ -9,6 +9,6 @@ import lombok.Data;
 @Cmd
 public class PlanEditCommand extends PlanOrder {
 
-//    @TargetAggregateIdentifier
+    @TargetAggregateIdentifier
     private String id;
 }

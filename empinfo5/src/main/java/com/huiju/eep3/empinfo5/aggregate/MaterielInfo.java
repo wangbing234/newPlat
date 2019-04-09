@@ -88,6 +88,7 @@ public class MaterielInfo extends SimpleAggregate {
     public void handler(MaterielInfoADD cmd) {
         CreateMaterielEvt materielInfoEdit = new CreateMaterielEvt();
         BeanUtils.copyProperties(cmd,materielInfoEdit);
+        materielInfoEdit.setId(getAggregateId());
         AggregateLifecycle.apply(materielInfoEdit);
     }
 

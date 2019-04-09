@@ -44,7 +44,7 @@ public class PlanOrderEvent {
     @EventHandler
     public void on(PlanAddEvent evt) {
         PlanOrderEntity materielType = new PlanOrderEntity();
-        BeanUtils.copyProperties(evt, materielType, "id");
+        BeanUtils.copyProperties(evt, materielType);
         planOrderEntityRepository.save(materielType);
     }
 }

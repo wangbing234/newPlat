@@ -70,6 +70,7 @@ public class WorkOrder extends SimpleAggregate {
     public void handler(AddWorkOrderCommand cmd) {
         AddWorkOrderEvent planEditEvent = new AddWorkOrderEvent();
         BeanUtils.copyProperties(cmd, planEditEvent);
+        planEditEvent.setId(getAggregateId());
         AggregateLifecycle.apply(planEditEvent);
     }
 
