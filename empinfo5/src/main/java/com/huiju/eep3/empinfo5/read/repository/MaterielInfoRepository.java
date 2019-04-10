@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface MaterielInfoRepository extends WiselyRepository<MaterielInfo, String> {
 
-    void  deleteByGidIn(List<String> ids);
-
     @Override
     List<MaterielInfo> findAll();
 

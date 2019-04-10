@@ -1,10 +1,12 @@
 package com.huiju.eep3.empinfo5.aggregate;
 
 import com.huiju.eep3.empinfo5.command.materielInfo.DeleteIds;
+import com.huiju.eep3.empinfo5.command.materielInfo.DeleteMaterielCmd;
 import com.huiju.eep3.empinfo5.command.materielInfo.MaterielInfoADD;
 import com.huiju.eep3.empinfo5.command.materielInfo.MaterielInfoEdit;
 import com.huiju.eep3.empinfo5.event.materielInfo.CreateMaterielEvt;
-import com.huiju.eep3.empinfo5.event.materielInfo.DeleteMaterielEvt;
+import com.huiju.eep3.empinfo5.event.materielInfo.BaseDeleteMaterielEvt;
+import com.huiju.eep3.empinfo5.event.materielInfo.DeleteOneMaterielEvt;
 import com.huiju.eep3.empinfo5.event.materielInfo.EditMaterielEvt;
 import com.huiju.framework.ddd.aggregate.AggregateLifecycle;
 import com.huiju.framework.ddd.aggregate.SimpleAggregate;
@@ -72,7 +74,7 @@ public class MaterielInfo extends SimpleAggregate {
      */
     @CommandHandler
     public void handler(DeleteIds cmd) {
-        DeleteMaterielEvt deleteMaterielEvt = new DeleteMaterielEvt();
+        BaseDeleteMaterielEvt deleteMaterielEvt = new BaseDeleteMaterielEvt();
         deleteMaterielEvt.setIds(cmd.getIds());
         AggregateLifecycle.apply(deleteMaterielEvt);
     }
@@ -96,6 +98,16 @@ public class MaterielInfo extends SimpleAggregate {
         BeanUtils.copyProperties(cmd,materielInfoEdit);
         materielInfoEdit.setId(getAggregateId());
         AggregateLifecycle.apply(materielInfoEdit);
+    }
+
+    /**
+     * 增加物料
+     */
+    @CommandHandler
+    public void delete(DeleteMaterielCmd cmd) {
+        DeleteOneMaterielEvt deleteOneMaterielEvt = new DeleteOneMaterielEvt();
+        deleteOneMaterielEvt.setId(cmd.getId());
+        AggregateLifecycle.apply(deleteOneMaterielEvt);
     }
 
     /**

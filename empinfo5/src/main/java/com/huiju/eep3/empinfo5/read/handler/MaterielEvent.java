@@ -1,7 +1,8 @@
 package com.huiju.eep3.empinfo5.read.handler;
 
 import com.huiju.eep3.empinfo5.event.materielInfo.CreateMaterielEvt;
-import com.huiju.eep3.empinfo5.event.materielInfo.DeleteMaterielEvt;
+import com.huiju.eep3.empinfo5.event.materielInfo.BaseDeleteMaterielEvt;
+import com.huiju.eep3.empinfo5.event.materielInfo.DeleteOneMaterielEvt;
 import com.huiju.eep3.empinfo5.event.materielInfo.EditMaterielEvt;
 import com.huiju.eep3.empinfo5.read.entity.MaterielInfo;
 import com.huiju.eep3.empinfo5.read.repository.MaterielInfoRepository;
@@ -19,14 +20,15 @@ public class MaterielEvent {
     @Autowired
     private MaterielInfoRepository materielInfoRepository;
 
-    /**
-     * 删除事件
-     */
+
     @EventHandler
     @Transactional
-    public void on(DeleteMaterielEvt evt) {
-        materielInfoRepository.deleteByGidIn(evt.getIds());
+    public void on(DeleteOneMaterielEvt evt) {
+        materielInfoRepository.deleteById(evt.getId());
     }
+
+
+
 
     /**
      * 编辑事件
