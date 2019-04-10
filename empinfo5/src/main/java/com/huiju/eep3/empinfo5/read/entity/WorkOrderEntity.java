@@ -58,4 +58,9 @@ public class WorkOrderEntity extends IdEntity {
      * 计划完成时间
      */
     public java.util.Date planEndTime;
+
+    /**
+     * 订单顺序号
+     */
+    public Integer seq;
 }

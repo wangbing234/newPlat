@@ -72,6 +72,12 @@ public class WorkOrder extends SimpleAggregate {
     public java.util.Date planEndTime;
 
     /**
+     * 订单顺序号
+     */
+    public Integer seq;
+
+
+    /**
      * deleteWorkOrder
      */
     @CommandHandler
@@ -118,6 +124,7 @@ public class WorkOrder extends SimpleAggregate {
      */
     @EventHandler
     public void on(AddWorkOrderEvent evt) {
+        BeanUtils.copyProperties(evt, this);
     }
 
     /**
@@ -125,6 +132,7 @@ public class WorkOrder extends SimpleAggregate {
      */
     @EventHandler
     public void on(EditWorkOrderEvent evt) {
+        BeanUtils.copyProperties(evt, this);
     }
 
     /**
@@ -132,5 +140,6 @@ public class WorkOrder extends SimpleAggregate {
      */
     @EventHandler
     public void on(DeleteWorkOrderEvent evt) {
+        AggregateLifecycle.destory();
     }
 }

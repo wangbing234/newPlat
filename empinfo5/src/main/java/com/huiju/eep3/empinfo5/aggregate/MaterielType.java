@@ -75,5 +75,6 @@ public class MaterielType extends SimpleAggregate {
      */
     @EventHandler
     public void on(DeleteTypeEvt evt) {
+        AggregateLifecycle.destory();
     }
 }
