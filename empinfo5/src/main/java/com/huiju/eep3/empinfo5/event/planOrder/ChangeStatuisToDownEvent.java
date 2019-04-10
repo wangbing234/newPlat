@@ -6,6 +6,6 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class PlanDispatchEvent implements Serializable {
-    private List<String> ids;
+public class ChangeStatuisToDownEvent implements Serializable {
+    private String id;
 }

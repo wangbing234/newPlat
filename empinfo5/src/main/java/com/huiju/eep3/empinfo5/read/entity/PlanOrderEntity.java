@@ -6,6 +6,9 @@ import java.math.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import javax.persistence.Entity;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Slf4j
@@ -19,6 +22,12 @@ public class PlanOrderEntity extends IdEntity {
      * 编码
      */
     private String code;
+
+    /**
+     * 编码
+     */
+    private String status;
+
     /**
      * 工作中心
      */
@@ -30,6 +39,8 @@ public class PlanOrderEntity extends IdEntity {
     /**
      * 计划数量
      */
+    @NotNull
+    @Min(1)
     private Integer planQty;
     /**
      * 计划时间

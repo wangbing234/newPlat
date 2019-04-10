@@ -5,7 +5,7 @@ import java.math.*;
 import lombok.Data;
 
 @Data
-public class WorkOrder {
+public class WorkOrderDTO {
 
 	/**
 	 * code
@@ -15,6 +15,11 @@ public class WorkOrder {
 	 * 工单类别
 	 */
 	private String orderType;
+
+	/**
+	 * 生产工单数量
+	 */
+	public BigDecimal planQty;
 	/**
 	 * 生产工单来源类型
 	 */

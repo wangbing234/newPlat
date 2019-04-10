@@ -1,17 +1,17 @@
 package com.huiju.eep3.empinfo5.read.repository;
 
-import com.huiju.framework.core.repository.WiselyRepository;
-import com.huiju.framework.ddd.annotation.QueryDefination;
 import com.huiju.eep3.empinfo5.read.entity.PlanOrderEntity;
-import java.util.*;
-import java.math.*;
+import com.huiju.framework.core.repository.WiselyRepository;
 
-public interface PlanOrderEntityRepository
-		extends
-			WiselyRepository<PlanOrderEntity, String> {
+import java.util.List;
 
-	@Override
-	List<PlanOrderEntity> findAll();
+public interface PlanOrderEntityRepository extends WiselyRepository<PlanOrderEntity, String> {
 
-	void  deleteByIdIn(List<String> ids);
+    @Override
+    List<PlanOrderEntity> findAll();
+
+//    List<PlanOrderEntity> findByIdIn(List<String> ids);
+
+    void deleteByIdIn(List<String> ids);
+
 }

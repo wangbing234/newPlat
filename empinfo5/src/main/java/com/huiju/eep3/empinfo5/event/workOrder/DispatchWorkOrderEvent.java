@@ -6,6 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class EditWorkOrderEvent  extends WorkOrderDTO implements Serializable {
+public class DispatchWorkOrderEvent  implements Serializable {
 
+    private String id;
 }

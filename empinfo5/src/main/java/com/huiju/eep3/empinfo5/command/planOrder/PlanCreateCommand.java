@@ -1,13 +1,10 @@
 package com.huiju.eep3.empinfo5.command.planOrder;
 
-import java.util.*;
-import java.math.*;
-
-import com.huiju.eep3.empinfo5.dto.PlanOrder;
+import com.huiju.eep3.empinfo5.dto.PlanOrderDTO;
 import lombok.Data;
 import com.huiju.framework.ddd.annotation.Cmd;
 
 @Data
 @Cmd
-public class PlanCreateCommand extends PlanOrder {
+public class PlanCreateCommand extends PlanOrderDTO {
 }

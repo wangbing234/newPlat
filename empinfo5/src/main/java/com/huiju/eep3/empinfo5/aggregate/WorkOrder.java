@@ -16,6 +16,8 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
+import java.math.BigDecimal;
+
 @Data
 @Slf4j
 public class WorkOrder extends SimpleAggregate {
@@ -40,6 +42,10 @@ public class WorkOrder extends SimpleAggregate {
      * 废品数量
      */
     private Integer wasteQty;
+    /**
+     * 生产工单数量
+     */
+    public BigDecimal planQty;
     /**
      * 批次号\轮次号
      */

@@ -6,7 +6,7 @@ import java.math.*;
 import lombok.Data;
 
 @Data
-public class PlanOrder {
+public class PlanOrderDTO {
 
 	/**
 	 * code
@@ -20,6 +20,11 @@ public class PlanOrder {
 	 * 编码
 	 */
 	private String code;
+
+	/**
+	 * 订单状态
+	 */
+	private String status;
 	/**
 	 * 工作中心
 	 */

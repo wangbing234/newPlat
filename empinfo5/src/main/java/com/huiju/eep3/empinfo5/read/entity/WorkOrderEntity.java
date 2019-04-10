@@ -21,6 +21,10 @@ public class WorkOrderEntity extends IdEntity {
      */
     private String resourceOrderType;
     /**
+     * 生产工单数量
+     */
+    public BigDecimal planQty;
+    /**
      * 合格数量
      */
     private Integer qualifiedQty;

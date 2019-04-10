@@ -5,7 +5,7 @@ import java.math.*;
 import lombok.Data;
 
 @Data
-public class CreateCommand {
+public class CreateEmployeeDTO {
 
 	/**
 	 * age

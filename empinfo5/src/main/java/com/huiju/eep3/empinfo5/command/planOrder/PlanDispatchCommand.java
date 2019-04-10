@@ -9,5 +9,5 @@ import java.util.List;
 @Cmd
 public class PlanDispatchCommand {
 
-    private String id;
+    private List<String> ids;
 }
