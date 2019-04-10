@@ -1,8 +1,6 @@
 package com.huiju.eep3.empinfo5.aggregate;
 
 import com.huiju.eep3.empinfo5.command.workOrder.*;
-import com.huiju.eep3.empinfo5.event.planOrder.PlanDeleteEvent;
-import com.huiju.eep3.empinfo5.event.planOrder.PlanEditEvent;
 import com.huiju.eep3.empinfo5.event.workOrder.*;
 import com.huiju.framework.ddd.aggregate.AggregateLifecycle;
 import com.huiju.framework.ddd.aggregate.SimpleAggregate;
@@ -70,6 +68,11 @@ public class WorkOrder extends SimpleAggregate {
      */
     public Integer seq;
 
+    /**
+     * 是否激活
+     */
+    public Boolean active;
+
 
     /**
      * deleteWorkOrder
@@ -118,6 +121,26 @@ public class WorkOrder extends SimpleAggregate {
     @CommandHandler
     public void handler(SortCommand cmd) {
         SortEvent sortEvent = new SortEvent();
+        BeanUtils.copyProperties(cmd, sortEvent);
+        AggregateLifecycle.apply(sortEvent);
+    }
+
+    /**
+     * 排程
+     */
+    @CommandHandler
+    public void handler(ActiveCommand cmd) {
+        ActiveEvent sortEvent = new ActiveEvent();
+        BeanUtils.copyProperties(cmd, sortEvent);
+        AggregateLifecycle.apply(sortEvent);
+    }
+
+    /**
+     * 排程
+     */
+    @CommandHandler
+    public void handler(FreezeCommand cmd) {
+        FreezeEvent sortEvent = new FreezeEvent();
         BeanUtils.copyProperties(cmd, sortEvent);
         AggregateLifecycle.apply(sortEvent);
     }

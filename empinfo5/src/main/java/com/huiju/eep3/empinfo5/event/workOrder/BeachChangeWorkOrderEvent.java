@@ -9,6 +9,6 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class WorkOrderSortEvent implements Serializable {
+public class BeachChangeWorkOrderEvent implements Serializable {
     List<WorkOrderEntity> workOrderEntityList;
 }

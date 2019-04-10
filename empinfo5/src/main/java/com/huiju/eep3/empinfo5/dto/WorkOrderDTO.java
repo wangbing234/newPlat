@@ -63,4 +63,9 @@ public class WorkOrderDTO {
 	 * 订单顺序号
 	 */
 	public Integer seq;
+
+	/**
+	 * 是否激活
+	 */
+	public Boolean active;
 }

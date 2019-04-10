@@ -80,12 +80,43 @@ public class WorkOrderEvent {
     public void on(SortEvent evt) {
         List<WorkOrderEntity> workOrderEntityList = workOrderEntityRepository.findByIdIn(evt.getIds());
         if (CollectionUtils.isEmpty(workOrderEntityList)) {
-            throw new BusinessException("找不到排程对象");
+            throw new BusinessException("找不到排序对象");
         }
         for (int i = 0; i < workOrderEntityList.size(); i++) {
             workOrderEntityList.get(i).setSeq(i);
         }
-        AggregateLifecycle.apply(new WorkOrderSortEvent(workOrderEntityList));
+        AggregateLifecycle.apply(new BeachChangeWorkOrderEvent(workOrderEntityList));
+    }
+
+    /**
+     * add
+     */
+    @EventHandler
+    public void on(ActiveEvent evt) {
+        List<WorkOrderEntity> workOrderEntityList = workOrderEntityRepository.findByIdIn(evt.getIds());
+        if (CollectionUtils.isEmpty(workOrderEntityList)) {
+            throw new BusinessException("找不到激活数据");
+        }
+        workOrderEntityList.forEach(workOrderEntity -> {
+            workOrderEntity.setActive(Boolean.TRUE);
+        });
+        AggregateLifecycle.apply(new BeachChangeWorkOrderEvent(workOrderEntityList));
+    }
+
+
+    /**
+     * add
+     */
+    @EventHandler
+    public void on(FreezeEvent evt) {
+        List<WorkOrderEntity> workOrderEntityList = workOrderEntityRepository.findByIdIn(evt.getIds());
+        if (CollectionUtils.isEmpty(workOrderEntityList)) {
+            throw new BusinessException("找不到排程对象");
+        }
+        workOrderEntityList.forEach(workOrderEntity -> {
+            workOrderEntity.setActive(Boolean.FALSE);
+        });
+        AggregateLifecycle.apply(new BeachChangeWorkOrderEvent(workOrderEntityList));
     }
 
     /**
