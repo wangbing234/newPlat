@@ -13,10 +13,6 @@ import javax.persistence.Entity;
 public class MaterielInfo extends IdEntity {
 
 	/**
-	 * 主键
-	 */
-	private String gid;
-	/**
 	 * 物料编码
 	 */
 	private String code;
