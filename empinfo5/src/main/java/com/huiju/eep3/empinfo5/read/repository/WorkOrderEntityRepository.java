@@ -1,17 +1,18 @@
 package com.huiju.eep3.empinfo5.read.repository;
 
-import com.huiju.framework.core.repository.WiselyRepository;
-import com.huiju.framework.ddd.annotation.QueryDefination;
 import com.huiju.eep3.empinfo5.read.entity.WorkOrderEntity;
-import java.util.*;
-import java.math.*;
+import com.huiju.framework.core.repository.WiselyRepository;
+
+import java.util.List;
 
 public interface WorkOrderEntityRepository
-		extends
-			WiselyRepository<WorkOrderEntity, String> {
+        extends
+        WiselyRepository<WorkOrderEntity, String> {
 
-	@Override
-	List<WorkOrderEntity> findAll();
+    @Override
+    List<WorkOrderEntity> findAll();
 
-	void  deleteByIdIn(List<String> ids);
+    void deleteByIdIn(List<String> ids);
+
+    List<WorkOrderEntity> findByIdIn(List<String> ids);
 }

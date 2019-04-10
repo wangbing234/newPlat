@@ -48,4 +48,14 @@ public class WorkOrderEntity extends IdEntity {
      * 编码
      */
     private String code;
+
+    /**
+     * 计划开始时间
+     */
+    public java.util.Date planBeginTime;
+
+    /**
+     * 计划完成时间
+     */
+    public java.util.Date planEndTime;
 }

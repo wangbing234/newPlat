@@ -3,11 +3,13 @@ package com.huiju.eep3.empinfo5.aggregate;
 import com.huiju.eep3.empinfo5.command.workOrder.AddWorkOrderCommand;
 import com.huiju.eep3.empinfo5.command.workOrder.DeleteWorkOrderCommand;
 import com.huiju.eep3.empinfo5.command.workOrder.EditWorkOrderCommand;
+import com.huiju.eep3.empinfo5.command.workOrder.ScheduleCommand;
 import com.huiju.eep3.empinfo5.event.planOrder.PlanDeleteEvent;
 import com.huiju.eep3.empinfo5.event.planOrder.PlanEditEvent;
 import com.huiju.eep3.empinfo5.event.workOrder.AddWorkOrderEvent;
 import com.huiju.eep3.empinfo5.event.workOrder.DeleteWorkOrderEvent;
 import com.huiju.eep3.empinfo5.event.workOrder.EditWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.ScheduleEvent;
 import com.huiju.framework.ddd.aggregate.AggregateLifecycle;
 import com.huiju.framework.ddd.aggregate.SimpleAggregate;
 import com.huiju.framework.ddd.annotation.CommandHandler;
@@ -60,6 +62,16 @@ public class WorkOrder extends SimpleAggregate {
     private String code;
 
     /**
+     * 计划开始时间
+     */
+    public java.util.Date planBeginTime;
+
+    /**
+     * 计划完成时间
+     */
+    public java.util.Date planEndTime;
+
+    /**
      * deleteWorkOrder
      */
     @CommandHandler
@@ -89,6 +101,17 @@ public class WorkOrder extends SimpleAggregate {
         BeanUtils.copyProperties(cmd, planEditEvent);
         AggregateLifecycle.apply(planEditEvent);
     }
+
+    /**
+     * 排程
+     */
+    @CommandHandler
+    public void handler(ScheduleCommand cmd) {
+        ScheduleEvent scheduleEvent = new ScheduleEvent();
+        BeanUtils.copyProperties(cmd, scheduleEvent);
+        AggregateLifecycle.apply(scheduleEvent);
+    }
+
 
     /**
      * AddWorkOrderEvent事件处理
