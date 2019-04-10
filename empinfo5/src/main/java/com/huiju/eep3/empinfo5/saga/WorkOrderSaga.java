@@ -5,6 +5,7 @@ import com.huiju.eep3.empinfo5.command.workOrder.AddWorkOrderCommand;
 import com.huiju.eep3.empinfo5.command.workOrder.EditWorkOrderCommand;
 import com.huiju.eep3.empinfo5.event.workOrder.WorkOrderDispatchEvent;
 import com.huiju.eep3.empinfo5.event.workOrder.WorkOrderSchudleEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.WorkOrderSortEvent;
 import com.huiju.eep3.empinfo5.read.entity.PlanOrderEntity;
 import com.huiju.eep3.empinfo5.read.entity.WorkOrderEntity;
 import com.huiju.framework.ddd.saga.annotation.SagaEventHandler;
@@ -61,5 +62,19 @@ public class WorkOrderSaga {
             return editWorkOrderCommand;
         }).collect(Collectors.toList());
     }
+    /**
+     * 订单下发
+     */
+    @StartSaga
+    @SagaEventHandler
+    public List<EditWorkOrderCommand> on(WorkOrderSortEvent evt) {
+        List<WorkOrderEntity> workOrderEntityList = evt.getWorkOrderEntityList();
+        return workOrderEntityList.stream().map(workOrderEntity -> {
+            EditWorkOrderCommand editWorkOrderCommand = new EditWorkOrderCommand();
+            BeanUtils.copyProperties(workOrderEntity, editWorkOrderCommand);
+            return editWorkOrderCommand;
+        }).collect(Collectors.toList());
+    }
+
 
 }

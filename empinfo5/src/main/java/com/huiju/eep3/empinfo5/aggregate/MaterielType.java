@@ -19,7 +19,19 @@ import org.springframework.beans.BeanUtils;
 public class MaterielType extends SimpleAggregate {
 
     /**
-     * code
+     * 父id
+     */
+    private String id;
+    /**
+     * 父id
+     */
+    private String parentGid;
+    /**
+     * 名称
+     */
+    private String name;
+    /**
+     * 编码
      */
     private String code;
 

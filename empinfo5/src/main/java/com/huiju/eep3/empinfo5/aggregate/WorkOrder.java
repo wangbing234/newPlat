@@ -1,15 +1,9 @@
 package com.huiju.eep3.empinfo5.aggregate;
 
-import com.huiju.eep3.empinfo5.command.workOrder.AddWorkOrderCommand;
-import com.huiju.eep3.empinfo5.command.workOrder.DeleteWorkOrderCommand;
-import com.huiju.eep3.empinfo5.command.workOrder.EditWorkOrderCommand;
-import com.huiju.eep3.empinfo5.command.workOrder.ScheduleCommand;
+import com.huiju.eep3.empinfo5.command.workOrder.*;
 import com.huiju.eep3.empinfo5.event.planOrder.PlanDeleteEvent;
 import com.huiju.eep3.empinfo5.event.planOrder.PlanEditEvent;
-import com.huiju.eep3.empinfo5.event.workOrder.AddWorkOrderEvent;
-import com.huiju.eep3.empinfo5.event.workOrder.DeleteWorkOrderEvent;
-import com.huiju.eep3.empinfo5.event.workOrder.EditWorkOrderEvent;
-import com.huiju.eep3.empinfo5.event.workOrder.ScheduleEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.*;
 import com.huiju.framework.ddd.aggregate.AggregateLifecycle;
 import com.huiju.framework.ddd.aggregate.SimpleAggregate;
 import com.huiju.framework.ddd.annotation.CommandHandler;
@@ -116,6 +110,16 @@ public class WorkOrder extends SimpleAggregate {
         ScheduleEvent scheduleEvent = new ScheduleEvent();
         BeanUtils.copyProperties(cmd, scheduleEvent);
         AggregateLifecycle.apply(scheduleEvent);
+    }
+
+    /**
+     * 排程
+     */
+    @CommandHandler
+    public void handler(SortCommand cmd) {
+        SortEvent sortEvent = new SortEvent();
+        BeanUtils.copyProperties(cmd, sortEvent);
+        AggregateLifecycle.apply(sortEvent);
     }
 
 

@@ -77,6 +77,21 @@ public class WorkOrderEvent {
      * add
      */
     @EventHandler
+    public void on(SortEvent evt) {
+        List<WorkOrderEntity> workOrderEntityList = workOrderEntityRepository.findByIdIn(evt.getIds());
+        if (CollectionUtils.isEmpty(workOrderEntityList)) {
+            throw new BusinessException("找不到排程对象");
+        }
+        for (int i = 0; i < workOrderEntityList.size(); i++) {
+            workOrderEntityList.get(i).setSeq(i);
+        }
+        AggregateLifecycle.apply(new WorkOrderSortEvent(workOrderEntityList));
+    }
+
+    /**
+     * add
+     */
+    @EventHandler
     public void on(ScheduleEvent evt) {
         List<WorkOrderEntity> workOrderEntityList = workOrderEntityRepository.findByIdIn(evt.getIds());
         if (CollectionUtils.isEmpty(workOrderEntityList)) {
