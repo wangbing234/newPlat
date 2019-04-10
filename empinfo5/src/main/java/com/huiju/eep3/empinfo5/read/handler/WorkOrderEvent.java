@@ -78,20 +78,20 @@ public class WorkOrderEvent {
      * add
      */
     @EventHandler
-    public void on(DoBatchCommand evt) {
+    public void on(DoBatchWorkOrderEvent evt) {
         Optional<WorkOrderEntity> planOrderEntityOptional = workOrderEntityRepository.findById(evt.getBatchWorkOrderDTO().getId());
         List<WorkOrderEntity> workOrderEntityList = Lists.newArrayList();
-        planOrderEntityOptional.ifPresent(planOrderEntity -> {
-            evt.getBatchWorkOrderDTO().getNumber().stream().map(number -> {
+        if(planOrderEntityOptional.isPresent()){
+            evt.getBatchWorkOrderDTO().getNumber().forEach(number -> {
                 WorkOrderEntity work = new WorkOrderEntity();
-                BeanUtils.copyProperties(planOrderEntity, work);
+                BeanUtils.copyProperties(planOrderEntityOptional.get(), work);
                 work.setPlanQty(new BigDecimal(number));
-                work.setId(UUID.randomUUID().toString());
+                work.setId(null);
                 workOrderEntityList.add(work);
-                return work;
             });
-        });
-        AggregateLifecycle.apply(new BatchChangeWorkOrderEvent(workOrderEntityList));
+        }
+
+        AggregateLifecycle.apply(new BatchAddWorkOrderEvent(workOrderEntityList));
     }
 
 
