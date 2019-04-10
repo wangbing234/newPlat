@@ -92,6 +92,7 @@ public class WorkOrder extends SimpleAggregate {
         AddWorkOrderEvent planEditEvent = new AddWorkOrderEvent();
         BeanUtils.copyProperties(cmd, planEditEvent);
         planEditEvent.setId(getAggregateId());
+        cmd.setActive(Boolean.TRUE);
         AggregateLifecycle.apply(planEditEvent);
     }
 
@@ -144,6 +145,28 @@ public class WorkOrder extends SimpleAggregate {
         BeanUtils.copyProperties(cmd, sortEvent);
         AggregateLifecycle.apply(sortEvent);
     }
+
+    /**
+     * 排程
+     */
+    @CommandHandler
+    public void handler(BatchCommand cmd) {
+        BatchWorkOrderEvent batchWorkOrderEvent = new BatchWorkOrderEvent();
+        BeanUtils.copyProperties(cmd, batchWorkOrderEvent);
+        AggregateLifecycle.apply(batchWorkOrderEvent);
+    }
+    /**
+     * 排程
+     */
+    @CommandHandler
+    public void handler(DoBatchCommand cmd) {
+        DoBatchWorkOrderEvent batchWorkOrderEvent = new DoBatchWorkOrderEvent();
+        BeanUtils.copyProperties(cmd, batchWorkOrderEvent);
+        AggregateLifecycle.apply(batchWorkOrderEvent);
+    }
+
+
+
 
 
     /**

@@ -2,10 +2,13 @@ package com.huiju.eep3.empinfo5.saga;
 
 import com.google.common.collect.Lists;
 import com.huiju.eep3.empinfo5.command.workOrder.AddWorkOrderCommand;
+import com.huiju.eep3.empinfo5.command.workOrder.DoBatchCommand;
 import com.huiju.eep3.empinfo5.command.workOrder.EditWorkOrderCommand;
+import com.huiju.eep3.empinfo5.dto.BatchWorkOrderDTO;
+import com.huiju.eep3.empinfo5.event.workOrder.BatchChangeWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.BatchWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.DoBatchWorkOrderEvent;
 import com.huiju.eep3.empinfo5.event.workOrder.WorkOrderDispatchEvent;
-import com.huiju.eep3.empinfo5.event.workOrder.WorkOrderSchudleEvent;
-import com.huiju.eep3.empinfo5.event.workOrder.BeachChangeWorkOrderEvent;
 import com.huiju.eep3.empinfo5.read.entity.PlanOrderEntity;
 import com.huiju.eep3.empinfo5.read.entity.WorkOrderEntity;
 import com.huiju.framework.ddd.saga.annotation.SagaEventHandler;
@@ -49,11 +52,11 @@ public class WorkOrderSaga {
 
 
     /**
-     * 订单下发
+     * 批量修改
      */
     @StartSaga
     @SagaEventHandler
-    public List<EditWorkOrderCommand> on(WorkOrderSchudleEvent evt) {
+    public List<EditWorkOrderCommand> on(BatchChangeWorkOrderEvent evt) {
         List<WorkOrderEntity> workOrderEntityList = evt.getWorkOrderEntityList();
         return workOrderEntityList.stream().map(workOrderEntity -> {
             EditWorkOrderCommand editWorkOrderCommand = new EditWorkOrderCommand();
@@ -61,16 +64,17 @@ public class WorkOrderSaga {
             return editWorkOrderCommand;
         }).collect(Collectors.toList());
     }
+
     /**
-     * 订单下发
+     * 批量分批
      */
     @StartSaga
     @SagaEventHandler
-    public List<EditWorkOrderCommand> on(BeachChangeWorkOrderEvent evt) {
-        List<WorkOrderEntity> workOrderEntityList = evt.getWorkOrderEntityList();
+    public List<DoBatchCommand> on(BatchWorkOrderEvent evt) {
+        List<BatchWorkOrderDTO> workOrderEntityList = evt.getBatchWorkOrderDTOList();
         return workOrderEntityList.stream().map(workOrderEntity -> {
-            EditWorkOrderCommand editWorkOrderCommand = new EditWorkOrderCommand();
-            BeanUtils.copyProperties(workOrderEntity, editWorkOrderCommand);
+            DoBatchCommand editWorkOrderCommand = new DoBatchCommand();
+            editWorkOrderCommand.setBatchWorkOrderDTO(workOrderEntity);
             return editWorkOrderCommand;
         }).collect(Collectors.toList());
     }

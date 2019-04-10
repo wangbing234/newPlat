@@ -10,7 +10,7 @@ public interface PlanOrderEntityRepository extends WiselyRepository<PlanOrderEnt
     @Override
     List<PlanOrderEntity> findAll();
 
-//    List<PlanOrderEntity> findByIdIn(List<String> ids);
+    List<PlanOrderEntity> findByIdIn(List<String> ids);
 
     void deleteByIdIn(List<String> ids);
 

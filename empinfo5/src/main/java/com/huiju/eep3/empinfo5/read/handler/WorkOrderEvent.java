@@ -1,5 +1,7 @@
 package com.huiju.eep3.empinfo5.read.handler;
 
+import com.google.common.collect.Lists;
+import com.huiju.eep3.empinfo5.command.workOrder.DoBatchCommand;
 import com.huiju.eep3.empinfo5.event.planOrder.ChangeStatuisToDownEvent;
 import com.huiju.eep3.empinfo5.event.workOrder.*;
 import com.huiju.eep3.empinfo5.read.entity.PlanOrderEntity;
@@ -17,10 +19,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -73,6 +73,28 @@ public class WorkOrderEvent {
         );
     }
 
+
+    /**
+     * add
+     */
+    @EventHandler
+    public void on(DoBatchCommand evt) {
+        Optional<WorkOrderEntity> planOrderEntityOptional = workOrderEntityRepository.findById(evt.getBatchWorkOrderDTO().getId());
+        List<WorkOrderEntity> workOrderEntityList = Lists.newArrayList();
+        planOrderEntityOptional.ifPresent(planOrderEntity -> {
+            evt.getBatchWorkOrderDTO().getNumber().stream().map(number -> {
+                WorkOrderEntity work = new WorkOrderEntity();
+                BeanUtils.copyProperties(planOrderEntity, work);
+                work.setPlanQty(new BigDecimal(number));
+                work.setId(UUID.randomUUID().toString());
+                workOrderEntityList.add(work);
+                return work;
+            });
+        });
+        AggregateLifecycle.apply(new BatchChangeWorkOrderEvent(workOrderEntityList));
+    }
+
+
     /**
      * add
      */
@@ -85,7 +107,7 @@ public class WorkOrderEvent {
         for (int i = 0; i < workOrderEntityList.size(); i++) {
             workOrderEntityList.get(i).setSeq(i);
         }
-        AggregateLifecycle.apply(new BeachChangeWorkOrderEvent(workOrderEntityList));
+        AggregateLifecycle.apply(new BatchChangeWorkOrderEvent(workOrderEntityList));
     }
 
     /**
@@ -100,7 +122,7 @@ public class WorkOrderEvent {
         workOrderEntityList.forEach(workOrderEntity -> {
             workOrderEntity.setActive(Boolean.TRUE);
         });
-        AggregateLifecycle.apply(new BeachChangeWorkOrderEvent(workOrderEntityList));
+        AggregateLifecycle.apply(new BatchChangeWorkOrderEvent(workOrderEntityList));
     }
 
 
@@ -116,7 +138,7 @@ public class WorkOrderEvent {
         workOrderEntityList.forEach(workOrderEntity -> {
             workOrderEntity.setActive(Boolean.FALSE);
         });
-        AggregateLifecycle.apply(new BeachChangeWorkOrderEvent(workOrderEntityList));
+        AggregateLifecycle.apply(new BatchChangeWorkOrderEvent(workOrderEntityList));
     }
 
     /**
@@ -133,7 +155,7 @@ public class WorkOrderEvent {
             workOrderEntity.setPlanBeginTime(date);
             workOrderEntity.setPlanEndTime(DateUtils.addHours(date, new Random().nextInt(10)));
         });
-        AggregateLifecycle.apply(new WorkOrderSchudleEvent(workOrderEntityList));
+        AggregateLifecycle.apply(new BatchChangeWorkOrderEvent(workOrderEntityList));
     }
 
 

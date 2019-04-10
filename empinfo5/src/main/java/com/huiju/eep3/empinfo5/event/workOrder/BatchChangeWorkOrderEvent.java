@@ -9,6 +9,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class BeachChangeWorkOrderEvent implements Serializable {
-    List<WorkOrderEntity> workOrderEntityList;
+public class BatchChangeWorkOrderEvent implements Serializable {
+
+    private List<WorkOrderEntity> workOrderEntityList;
 }
