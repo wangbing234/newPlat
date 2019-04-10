@@ -8,6 +8,10 @@ import lombok.Data;
 public class WorkOrder {
 
 	/**
+	 * code
+	 */
+	private String id;
+	/**
 	 * 工单类别
 	 */
 	private String orderType;

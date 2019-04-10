@@ -12,4 +12,6 @@ public interface MaterielInfoRepository extends WiselyRepository<MaterielInfo, S
 
     @Override
     List<MaterielInfo> findAll();
+
+    List<MaterielInfo> findByMaterielTypeGid(String materielTypeGid);
 }

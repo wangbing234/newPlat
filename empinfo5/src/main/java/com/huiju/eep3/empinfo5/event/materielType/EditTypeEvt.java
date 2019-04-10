@@ -10,8 +10,5 @@ import lombok.Data;
 @Data
 public class EditTypeEvt extends MaterielTypeDTO implements Serializable {
 
-	/**
-	 * code
-	 */
-	private String id;
+
 }

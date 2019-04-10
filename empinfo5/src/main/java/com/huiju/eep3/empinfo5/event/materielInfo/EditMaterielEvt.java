@@ -10,8 +10,5 @@ import lombok.Data;
 @Data
 public class EditMaterielEvt extends MaterielInfoDTO implements Serializable {
 
-	/**
-	 * 编码
-	 */
-	private String id;
+
 }

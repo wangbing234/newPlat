@@ -47,7 +47,7 @@ public class WorkOrderEvent {
 	@EventHandler
 	public void on(AddWorkOrderEvent evt) {
 		WorkOrderEntity materielType =new WorkOrderEntity();
-		BeanUtils.copyProperties(evt,materielType,"id");
+		BeanUtils.copyProperties(evt,materielType);
 		workOrderEntityRepository.save(materielType);
 	}
 }

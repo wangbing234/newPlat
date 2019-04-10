@@ -54,6 +54,12 @@ public class MaterielInfo extends SimpleAggregate {
      * 是否采购件
      */
     private Boolean purchaseParts;
+
+    /**
+     * 物料分类
+     */
+    private String   materielTypeGid;
+
     /**
      * 简称
      */
@@ -107,5 +113,7 @@ public class MaterielInfo extends SimpleAggregate {
     public void on(EditMaterielEvt evt) {
         BeanUtils.copyProperties(evt,this);
     }
+
+
 
 }

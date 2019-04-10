@@ -30,6 +30,7 @@ public class MaterielType extends SimpleAggregate {
     public void handler(AddTypeCommand cmd) {
         AddTypeEvt addTypeEvt = new AddTypeEvt();
         BeanUtils.copyProperties(cmd, addTypeEvt);
+        addTypeEvt.setId(getAggregateId());
         AggregateLifecycle.apply(addTypeEvt);
     }
 

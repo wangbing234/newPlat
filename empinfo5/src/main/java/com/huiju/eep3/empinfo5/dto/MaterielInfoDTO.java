@@ -8,6 +8,10 @@ import java.util.List;
 public class MaterielInfoDTO {
 
     /**
+     * 编码
+     */
+    private String id;
+    /**
      * 物料编码
      */
     private String code;
@@ -47,6 +51,11 @@ public class MaterielInfoDTO {
      * 简称
      */
     private String abbreviation;
+
+    /**
+     * 物料分类
+     */
+    private String   materielTypeGid;
 
     /**
      * 简称

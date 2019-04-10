@@ -9,6 +9,10 @@ import lombok.Data;
 public class PlanOrder {
 
 	/**
+	 * code
+	 */
+	private String id;
+	/**
 	 * 产品
 	 */
 	private String bmProductAggGid;

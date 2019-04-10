@@ -57,4 +57,9 @@ public class MaterielInfo extends IdEntity {
 	 */
 	private String abbreviation;
 
+	/**
+	 * 物料分类
+	 */
+	private String   materielTypeGid;
+
 }

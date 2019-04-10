@@ -6,6 +6,10 @@ import lombok.Data;
 public class MaterielTypeDTO {
 
     /**
+     * code
+     */
+    private String id;
+    /**
      * 父id
      */
     private String parentGid;

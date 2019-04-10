@@ -44,7 +44,7 @@ public class MaterielEvent {
     @EventHandler
     public void on(CreateMaterielEvt evt) {
         MaterielInfo materielInfo = new MaterielInfo();
-        BeanUtils.copyProperties(evt, materielInfo, "id");
+        BeanUtils.copyProperties(evt, materielInfo);
         materielInfoRepository.save(materielInfo);
     }
 }

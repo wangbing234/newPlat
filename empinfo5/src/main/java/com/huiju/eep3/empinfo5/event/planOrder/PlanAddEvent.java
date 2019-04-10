@@ -8,8 +8,5 @@ import java.io.Serializable;
 @Data
 public class PlanAddEvent extends PlanOrder implements Serializable {
 
-    /**
-     * code
-     */
-    private String id;
+
 }
