@@ -1,16 +1,42 @@
 package com.huiju.eep3.empinfo5.aggregate;
 
-import com.huiju.eep3.empinfo5.command.workOrder.*;
-import com.huiju.eep3.empinfo5.event.workOrder.*;
+import java.math.BigDecimal;
+
+import org.springframework.beans.BeanUtils;
+
+import com.huiju.eep3.empinfo5.command.workOrder.ActiveCommand;
+import com.huiju.eep3.empinfo5.command.workOrder.AddWorkOrderCommand;
+import com.huiju.eep3.empinfo5.command.workOrder.BatchCommand;
+import com.huiju.eep3.empinfo5.command.workOrder.DeleteWorkOrderCommand;
+import com.huiju.eep3.empinfo5.command.workOrder.DoBatchCommand;
+import com.huiju.eep3.empinfo5.command.workOrder.EditWorkOrderCommand;
+import com.huiju.eep3.empinfo5.command.workOrder.FreezeCommand;
+import com.huiju.eep3.empinfo5.command.workOrder.ScheduleCommand;
+import com.huiju.eep3.empinfo5.command.workOrder.SortCommand;
+import com.huiju.eep3.empinfo5.component.workorder.WorkOrderComponent;
+import com.huiju.eep3.empinfo5.component.workorder.action.ApsWorkOrderAction;
+import com.huiju.eep3.empinfo5.component.workorder.action.CreateWorkOrderAction;
+import com.huiju.eep3.empinfo5.component.workorder.action.SortWorkOrderAction;
+import com.huiju.eep3.empinfo5.component.workorder.vo.WorkOrderVO;
+import com.huiju.eep3.empinfo5.dto.WorkOrderDTO;
+import com.huiju.eep3.empinfo5.event.workOrder.ActiveEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.AddWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.BatchWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.DeleteWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.DoBatchWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.EditWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.FreezeEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.ScheduleEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.SortEvent;
 import com.huiju.framework.ddd.aggregate.AggregateLifecycle;
 import com.huiju.framework.ddd.aggregate.SimpleAggregate;
 import com.huiju.framework.ddd.annotation.CommandHandler;
 import com.huiju.framework.ddd.annotation.EventHandler;
+import com.huiju.framework.ddd.ime.engine.ImeEngineComponent;
+import com.huiju.framework.ddd.ime.engine.ImeEngineHelper;
+
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
-
-import java.math.BigDecimal;
 
 @Data
 @Slf4j
@@ -86,10 +112,20 @@ public class WorkOrder extends SimpleAggregate {
 
     /**
      * editWorkOrder
+     * @throws Exception 
      */
     @CommandHandler
-    public void handler(AddWorkOrderCommand cmd) {
+    public void handler(AddWorkOrderCommand cmd) throws Exception {
         AddWorkOrderEvent planEditEvent = new AddWorkOrderEvent();
+        
+        ImeEngineComponent compInstance = new WorkOrderComponent(this.getAggregateId(), cmd.getScene());
+        Class actionType = CreateWorkOrderAction.class;
+        WorkOrderDTO dto = new WorkOrderDTO();
+        dto.setId(this.getAggregateId());
+        dto.setCode(cmd.getCode());        
+        WorkOrderVO result = (WorkOrderVO) ImeEngineHelper.execute(compInstance, actionType, dto);
+        String st = compInstance.getState().getValue();
+        
         BeanUtils.copyProperties(cmd, planEditEvent);
         planEditEvent.setId(getAggregateId());
         cmd.setActive(Boolean.TRUE);
@@ -108,20 +144,40 @@ public class WorkOrder extends SimpleAggregate {
 
     /**
      * 排程
+     * @throws Exception 
      */
     @CommandHandler
-    public void handler(ScheduleCommand cmd) {
+    public void handler(ScheduleCommand cmd) throws Exception {
         ScheduleEvent scheduleEvent = new ScheduleEvent();
+        for(String id: cmd.getIds()) {
+            ImeEngineComponent compInstance = new WorkOrderComponent(id, cmd.getScene());
+            Class actionType = ApsWorkOrderAction.class;
+            WorkOrderDTO dto = new WorkOrderDTO();
+            dto.setId(id);
+            WorkOrderVO result = (WorkOrderVO) ImeEngineHelper.execute(compInstance, actionType, dto);
+            String st = compInstance.getState().getValue();
+        }
+        
         BeanUtils.copyProperties(cmd, scheduleEvent);
         AggregateLifecycle.apply(scheduleEvent);
     }
 
     /**
      * 排程
+     * @throws Exception 
      */
     @CommandHandler
-    public void handler(SortCommand cmd) {
+    public void handler(SortCommand cmd) throws Exception {
         SortEvent sortEvent = new SortEvent();
+        for(String id: cmd.getIds()) {
+            ImeEngineComponent compInstance = new WorkOrderComponent(id, cmd.getScene());
+            Class actionType = SortWorkOrderAction.class;
+            WorkOrderDTO dto = new WorkOrderDTO();
+            dto.setId(id);
+            WorkOrderVO result = (WorkOrderVO) ImeEngineHelper.execute(compInstance, actionType, dto);
+            String st = compInstance.getState().getValue();
+        }
+        
         BeanUtils.copyProperties(cmd, sortEvent);
         AggregateLifecycle.apply(sortEvent);
     }

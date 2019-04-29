@@ -1,17 +1,11 @@
 package com.huiju.eep3.empinfo5.read.handler;
 
-import com.google.common.collect.Lists;
-import com.huiju.eep3.empinfo5.command.workOrder.DoBatchCommand;
-import com.huiju.eep3.empinfo5.event.planOrder.ChangeStatuisToDownEvent;
-import com.huiju.eep3.empinfo5.event.workOrder.*;
-import com.huiju.eep3.empinfo5.read.entity.PlanOrderEntity;
-import com.huiju.eep3.empinfo5.read.entity.WorkOrderEntity;
-import com.huiju.eep3.empinfo5.read.repository.PlanOrderEntityRepository;
-import com.huiju.eep3.empinfo5.read.repository.WorkOrderEntityRepository;
-import com.huiju.framework.common.exceptions.BusinessException;
-import com.huiju.framework.ddd.aggregate.AggregateLifecycle;
-import com.huiju.framework.ddd.annotation.EventHandler;
-import lombok.extern.slf4j.Slf4j;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +13,33 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.math.BigDecimal;
-import java.util.*;
+import com.google.common.collect.Lists;
+import com.huiju.eep3.empinfo5.event.planOrder.ChangeStatuisToDownEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.ActiveEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.AddWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.BatchAddWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.BatchChangeWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.DeleteWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.DoBatchWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.EditWorkOrderEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.FreezeEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.ScheduleEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.SortEvent;
+import com.huiju.eep3.empinfo5.event.workOrder.WorkOrderDispatchEvent;
+import com.huiju.eep3.empinfo5.read.entity.PlanOrderEntity;
+import com.huiju.eep3.empinfo5.read.entity.WorkOrderEntity;
+import com.huiju.eep3.empinfo5.read.repository.PlanOrderEntityRepository;
+import com.huiju.eep3.empinfo5.read.repository.WorkOrderEntityRepository;
+import com.huiju.framework.common.exceptions.BusinessException;
+import com.huiju.framework.ddd.aggregate.AggregateLifecycle;
+import com.huiju.framework.ddd.annotation.EventHandler;
+import com.huiju.framework.ddd.annotation.ReadModel;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
+@ReadModel
 public class WorkOrderEvent {
 
     @Autowired

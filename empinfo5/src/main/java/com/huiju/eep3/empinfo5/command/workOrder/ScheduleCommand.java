@@ -9,4 +9,8 @@ import java.util.List;
 @Cmd
 public class ScheduleCommand {
     private List<String> ids;
+    
+    
+    
+    private String scene;
 }

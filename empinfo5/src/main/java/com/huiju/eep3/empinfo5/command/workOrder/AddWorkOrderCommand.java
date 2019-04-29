@@ -7,4 +7,6 @@ import lombok.Data;
 @Data
 @Cmd
 public class AddWorkOrderCommand extends WorkOrderDTO {
+    
+    private String scene;
 }

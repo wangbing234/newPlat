@@ -9,4 +9,6 @@ import java.util.List;
 @Cmd
 public class SortCommand {
     private List<String> ids;
+    
+    private String scene;
 }

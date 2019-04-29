@@ -111,6 +111,10 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <mainClass>com.huiju.StartApplication</mainClass>
+                    <fork>true</fork>
+                </configuration>
             </plugin>
         </plugins>
     </build>
